@@ -1,0 +1,32 @@
+[Unit]
+Description=Telegram Bot Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=your-username
+Group=your-username
+WorkingDirectory=/path/to/your/go-telegram-bot
+Environment=TELEGRAM_TOKEN=your_telegram_token_here
+Environment=WEATHER_API_KEY=your_weather_api_key_here
+ExecStart=/path/to/your/go-telegram-bot/telegram-bot
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=telegram-bot
+
+# Ограничения ресурсов
+LimitNOFILE=65536
+LimitNPROC=65536
+
+# Безопасность
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/path/to/your/go-telegram-bot/logs
+
+[Install]
+WantedBy=multi-user.target 
